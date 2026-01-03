@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from 'react';
 import { useAudioStore } from '@/lib/audio-store';
+import { getProxiedStreamUrl, isHttpStream } from '@/lib/audio';
 
 export function AudioEngine() {
   const audioRef = useRef<HTMLAudioElement | null>(null);
@@ -84,7 +85,9 @@ export function AudioEngine() {
     setIsLoading(true);
     setError(null);
     
-    audio.src = currentStation.url;
+    // Use proxy for HTTP streams on HTTPS sites
+    const streamUrl = getProxiedStreamUrl(currentStation.url);
+    audio.src = streamUrl;
     audio.load();
 
     if (isPlaying) {
@@ -92,12 +95,16 @@ export function AudioEngine() {
       if (playPromise !== undefined) {
         playPromise.catch(error => {
           console.error('Error playing audio:', error);
-          setError('Failed to play station. The stream may be unavailable.');
+          const isHttp = isHttpStream(currentStation.url);
+          const errorMessage = isHttp 
+            ? 'Failed to play HTTP stream. Using proxy to resolve mixed content issues.'
+            : 'Failed to play station. The stream may be unavailable.';
+          setError(errorMessage);
           setIsPlaying(false);
         });
       }
     }
-  }, [currentStation]);
+  }, [currentStation, isPlaying, setError, setIsLoading, setIsPlaying]);
 
   // Handle play/pause
   useEffect(() => {
@@ -140,7 +147,11 @@ export function AudioEngine() {
 
   const handleError = () => {
     setIsLoading(false);
-    setError('Failed to load audio stream. Please try another station.');
+    const isHttp = currentStation ? isHttpStream(currentStation.url) : false;
+    const errorMessage = isHttp 
+      ? 'Failed to load HTTP stream through proxy. The stream may be unavailable or incompatible.'
+      : 'Failed to load audio stream. Please try another station.';
+    setError(errorMessage);
     setIsPlaying(false);
   };
 
