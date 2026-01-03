@@ -104,7 +104,7 @@ export function AudioEngine() {
         });
       }
     }
-  }, [currentStation, isPlaying, setError, setIsLoading, setIsPlaying]);
+  }, [currentStation, isPlaying]);
 
   // Handle play/pause
   useEffect(() => {
