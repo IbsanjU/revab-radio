@@ -116,6 +116,248 @@ DELETE /api/broadcast?id=<station-id>
 - Consider using an external microphone
 - Check your internet connection speed
 
+## 🌐 Accessing Broadcasts Over the Internet
+
+By default, your Revab Radio broadcasts are only accessible on your local machine (`localhost:3000`). Here's how to make them accessible to others:
+
+### Option 1: Local Network Access (Same WiFi)
+
+Perfect for broadcasting to devices on your home or office network.
+
+#### Step 1: Find Your Local IP Address
+
+**On Windows:**
+```bash
+ipconfig
+# Look for "IPv4 Address" (usually 192.168.x.x)
+```
+
+**On Mac/Linux:**
+```bash
+ifconfig
+# Look for "inet" address (usually 192.168.x.x or 10.0.x.x)
+```
+
+Or use:
+```bash
+hostname -I  # Linux
+ipconfig getifaddr en0  # Mac
+```
+
+#### Step 2: Allow Network Connections
+
+Start the dev server to listen on all network interfaces:
+
+```bash
+npm run dev -- -H 0.0.0.0
+# or
+next dev -H 0.0.0.0
+```
+
+#### Step 3: Share Your URL
+
+Share your local IP with others on the same network:
+```
+http://YOUR_LOCAL_IP:3000
+```
+
+Example: `http://192.168.1.100:3000`
+
+**Security Note:** Only share with trusted users on your local network.
+
+#### Troubleshooting Local Network Access
+
+- **Can't connect?** Check your firewall settings
+  - **Windows**: Allow Node.js through Windows Firewall
+  - **Mac**: System Preferences → Security & Privacy → Firewall → Firewall Options
+  - **Linux**: Check `ufw` or `iptables` rules
+
+- **Still not working?** Ensure devices are on the same WiFi network and not using guest networks
+
+### Option 2: Internet Access via Ngrok (Quick & Easy)
+
+Great for testing or temporary sharing with anyone on the internet.
+
+#### Step 1: Install Ngrok
+
+```bash
+# Download from https://ngrok.com/download
+# Or use package managers:
+
+# Mac (Homebrew)
+brew install ngrok
+
+# Windows (Chocolatey)
+choco install ngrok
+
+# Linux (snap)
+snap install ngrok
+```
+
+#### Step 2: Run Your App
+
+```bash
+npm run dev
+```
+
+#### Step 3: Expose with Ngrok
+
+In a new terminal:
+```bash
+ngrok http 3000
+```
+
+You'll get a public URL like: `https://abc123.ngrok.io`
+
+#### Step 4: Share the URL
+
+Anyone can access your broadcast at the ngrok URL!
+
+**Limitations:**
+- Free tier has limitations (session timeouts, bandwidth limits)
+- URL changes each time you restart ngrok
+- May experience latency
+
+### Option 3: Deploy to Production (Recommended for Permanent Access)
+
+For a permanent, professional setup, deploy to a hosting platform.
+
+#### Deploy to Vercel (Easiest)
+
+1. **Push to GitHub:**
+   ```bash
+   git init
+   git add .
+   git commit -m "Initial commit"
+   git remote add origin YOUR_GITHUB_REPO
+   git push -u origin main
+   ```
+
+2. **Deploy to Vercel:**
+   - Visit [vercel.com](https://vercel.com)
+   - Click "New Project"
+   - Import your GitHub repository
+   - Click "Deploy"
+
+3. **Access Your App:**
+   Your app will be live at `https://your-app.vercel.app`
+
+**Benefits:**
+- Free tier available
+- Automatic HTTPS
+- Global CDN
+- Automatic deployments from Git
+- Custom domain support
+
+#### Deploy to Other Platforms
+
+**Railway:**
+```bash
+# Install Railway CLI
+npm install -g @railway/cli
+
+# Login and deploy
+railway login
+railway init
+railway up
+```
+
+**Render:**
+- Connect your GitHub repo at [render.com](https://render.com)
+- Choose "Web Service"
+- Build Command: `npm install && npm run build`
+- Start Command: `npm start`
+
+**Heroku:**
+```bash
+# Install Heroku CLI
+heroku login
+heroku create your-app-name
+git push heroku main
+```
+
+### Option 4: Self-Hosting on VPS
+
+For full control, deploy to your own server.
+
+#### Basic Setup (Ubuntu/Debian):
+
+```bash
+# Install Node.js
+curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
+sudo apt-get install -y nodejs
+
+# Clone and setup
+git clone YOUR_REPO
+cd revab-radio
+npm install
+npm run build
+
+# Run with PM2 (process manager)
+npm install -g pm2
+pm2 start npm --name "revab-radio" -- start
+pm2 save
+pm2 startup
+
+# Setup Nginx reverse proxy
+sudo apt install nginx
+# Configure nginx to proxy port 3000
+```
+
+**Nginx Configuration** (`/etc/nginx/sites-available/revab-radio`):
+```nginx
+server {
+    listen 80;
+    server_name your-domain.com;
+
+    location / {
+        proxy_pass http://localhost:3000;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host $host;
+        proxy_cache_bypass $http_upgrade;
+    }
+}
+```
+
+Enable and restart:
+```bash
+sudo ln -s /etc/nginx/sites-available/revab-radio /etc/nginx/sites-enabled/
+sudo nginx -t
+sudo systemctl restart nginx
+```
+
+### Broadcasting vs Listening Requirements
+
+**For Broadcasters:**
+- Must have access to the server (local network or internet)
+- Needs microphone permission in browser
+- Stable internet connection recommended
+
+**For Listeners:**
+- Only need the URL to access the app
+- Can be on any device with a modern browser
+- Works on mobile, tablet, desktop
+
+### Security Considerations
+
+When exposing your broadcast to the internet:
+
+1. **Use HTTPS** - Especially for production deployments
+2. **Consider Authentication** - Add user login if needed
+3. **Rate Limiting** - Prevent abuse of your broadcast API
+4. **Content Moderation** - Monitor broadcasts for inappropriate content
+5. **Bandwidth** - Be aware of hosting costs with many listeners
+6. **Privacy** - Don't broadcast sensitive information
+
+### Performance Tips
+
+- **Production builds** are faster: `npm run build && npm start`
+- **Use CDN** for static assets (Vercel does this automatically)
+- **Monitor bandwidth** - each listener uses ~128kbps
+- **Limit concurrent broadcasts** to prevent server overload
+
 ## Future Enhancements
 
 Potential improvements for custom broadcasting:
