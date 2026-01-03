@@ -6,6 +6,12 @@ A comprehensive, modern radio station application built with Next.js 14, featuri
 ![TypeScript](https://img.shields.io/badge/TypeScript-5+-blue?style=for-the-badge&logo=typescript)
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind-CSS-38B2AC?style=for-the-badge&logo=tailwind-css)
 
+## 📚 Documentation
+
+- **[FAQ](./FAQ.md)** - Frequently asked questions
+- **[Broadcasting Guide](./BROADCASTING.md)** - How to create and share broadcasts
+- **[Implementation Details](./IMPLEMENTATION_SUMMARY.md)** - Technical architecture
+
 ## ✨ Features
 
 ### 🎵 Core Playback
