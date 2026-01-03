@@ -1,0 +1,244 @@
+[
+  {
+    "id": "1",
+    "name": "BBC Radio 1",
+    "url": "http://stream.live.vc.bbcmedia.co.uk/bbc_radio_one",
+    "genre": "Pop",
+    "country": "UK",
+    "description": "The UK's biggest hits and the latest music",
+    "website": "https://www.bbc.co.uk/radio1"
+  },
+  {
+    "id": "2",
+    "name": "BBC Radio 2",
+    "url": "http://stream.live.vc.bbcmedia.co.uk/bbc_radio_two",
+    "genre": "Pop",
+    "country": "UK",
+    "description": "The home of great music and entertainment",
+    "website": "https://www.bbc.co.uk/radio2"
+  },
+  {
+    "id": "3",
+    "name": "Jazz FM",
+    "url": "https://edge-bauerall-01-gos2.sharp-stream.com/jazz.mp3",
+    "genre": "Jazz",
+    "country": "UK",
+    "description": "The UK's leading jazz and soul station"
+  },
+  {
+    "id": "4",
+    "name": "Classic FM",
+    "url": "http://media-ice.musicradio.com/ClassicFMMP3",
+    "genre": "Classical",
+    "country": "UK",
+    "description": "The world's greatest music"
+  },
+  {
+    "id": "5",
+    "name": "Heart FM",
+    "url": "http://media-ice.musicradio.com/HeartLondonMP3",
+    "genre": "Pop",
+    "country": "UK",
+    "description": "More Music Variety"
+  },
+  {
+    "id": "6",
+    "name": "Capital FM",
+    "url": "http://media-ice.musicradio.com/CapitalMP3",
+    "genre": "Pop",
+    "country": "UK",
+    "description": "UK's No.1 Hit Music Station"
+  },
+  {
+    "id": "7",
+    "name": "Smooth Radio",
+    "url": "http://media-ice.musicradio.com/SmoothLondonMP3",
+    "genre": "Easy Listening",
+    "country": "UK",
+    "description": "Relaxing music mix"
+  },
+  {
+    "id": "8",
+    "name": "Absolute Radio",
+    "url": "http://icecast.thisisdax.com/AbsoluteRadioMP3",
+    "genre": "Rock",
+    "country": "UK",
+    "description": "The home of real music"
+  },
+  {
+    "id": "9",
+    "name": "KEXP 90.3 FM",
+    "url": "https://kexp-mp3-128.streamguys1.com/kexp128.mp3",
+    "genre": "Alternative",
+    "country": "USA",
+    "description": "Where the music matters"
+  },
+  {
+    "id": "10",
+    "name": "NPR News",
+    "url": "https://npr-ice.streamguys1.com/live.mp3",
+    "genre": "News",
+    "country": "USA",
+    "description": "National Public Radio"
+  },
+  {
+    "id": "11",
+    "name": "WNYC FM",
+    "url": "https://fm939.wnyc.org/wnycfm-web",
+    "genre": "News",
+    "country": "USA",
+    "description": "New York Public Radio"
+  },
+  {
+    "id": "12",
+    "name": "Radio Paradise",
+    "url": "http://stream.radioparadise.com/aac-320",
+    "genre": "Eclectic",
+    "country": "USA",
+    "description": "Eclectic commercial-free music"
+  },
+  {
+    "id": "13",
+    "name": "SomaFM - Groove Salad",
+    "url": "https://ice6.somafm.com/groovesalad-128-mp3",
+    "genre": "Chillout",
+    "country": "USA",
+    "description": "A nicely chilled plate of ambient/downtempo beats"
+  },
+  {
+    "id": "14",
+    "name": "SomaFM - Drone Zone",
+    "url": "https://ice6.somafm.com/dronezone-128-mp3",
+    "genre": "Ambient",
+    "country": "USA",
+    "description": "Served best chilled, safe with most medications"
+  },
+  {
+    "id": "15",
+    "name": "SomaFM - Defcon Radio",
+    "url": "https://ice6.somafm.com/defcon-128-mp3",
+    "genre": "Electronic",
+    "country": "USA",
+    "description": "Music for Hacking"
+  },
+  {
+    "id": "16",
+    "name": "181.FM - The Buzz",
+    "url": "http://listen.181fm.com/181-buzz_128k.mp3",
+    "genre": "Alternative",
+    "country": "USA",
+    "description": "Alternative Rock"
+  },
+  {
+    "id": "17",
+    "name": "181.FM - Jazz",
+    "url": "http://listen.181fm.com/181-jazz_128k.mp3",
+    "genre": "Jazz",
+    "country": "USA",
+    "description": "Contemporary Jazz"
+  },
+  {
+    "id": "18",
+    "name": "Smooth Jazz 24/7",
+    "url": "https://smoothjazz.cdnstream1.com/2586_128.mp3",
+    "genre": "Jazz",
+    "country": "USA",
+    "description": "The best smooth jazz 24/7"
+  },
+  {
+    "id": "19",
+    "name": "Lofi Girl Radio",
+    "url": "https://streams.fluxfm.de/Lofi/mp3-320/streams.fluxfm.de/",
+    "genre": "Lofi",
+    "country": "International",
+    "description": "24/7 lofi hip hop beats to relax/study"
+  },
+  {
+    "id": "20",
+    "name": "Chill Lounge Florida",
+    "url": "http://hyades.shoutca.st:8043/stream",
+    "genre": "Chillout",
+    "country": "USA",
+    "description": "Chillout & Lounge Music"
+  },
+  {
+    "id": "21",
+    "name": "Venice Classic Radio",
+    "url": "http://174.36.206.197:8000/stream",
+    "genre": "Classical",
+    "country": "Italy",
+    "description": "Classical music from Venice"
+  },
+  {
+    "id": "22",
+    "name": "Radio Swiss Jazz",
+    "url": "http://stream.srg-ssr.ch/m/rsj/mp3_128",
+    "genre": "Jazz",
+    "country": "Switzerland",
+    "description": "Swiss jazz excellence"
+  },
+  {
+    "id": "23",
+    "name": "Radio Swiss Classic",
+    "url": "http://stream.srg-ssr.ch/m/rsc_de/mp3_128",
+    "genre": "Classical",
+    "country": "Switzerland",
+    "description": "Classical music 24/7"
+  },
+  {
+    "id": "24",
+    "name": "FIP",
+    "url": "https://icecast.radiofrance.fr/fip-midfi.mp3",
+    "genre": "Eclectic",
+    "country": "France",
+    "description": "French eclectic music"
+  },
+  {
+    "id": "25",
+    "name": "France Culture",
+    "url": "https://icecast.radiofrance.fr/franceculture-midfi.mp3",
+    "genre": "Culture",
+    "country": "France",
+    "description": "French cultural programming"
+  },
+  {
+    "id": "26",
+    "name": "Radio Nova",
+    "url": "https://novazz.ice.infomaniak.ch/novazz-128.mp3",
+    "genre": "Electronic",
+    "country": "France",
+    "description": "Electronic and world music"
+  },
+  {
+    "id": "27",
+    "name": "Ibiza Global Radio",
+    "url": "http://ibizaglobalradio.streaming-pro.com:8024/stream",
+    "genre": "Electronic",
+    "country": "Spain",
+    "description": "Live from Ibiza"
+  },
+  {
+    "id": "28",
+    "name": "Rock Antenne",
+    "url": "http://mp3channels.webradio.rockantenne.de/rockantenne",
+    "genre": "Rock",
+    "country": "Germany",
+    "description": "Classic and modern rock"
+  },
+  {
+    "id": "29",
+    "name": "Sunshine Live",
+    "url": "http://stream.sunshine-live.de/live/mp3-192",
+    "genre": "Electronic",
+    "country": "Germany",
+    "description": "Electronic dance music"
+  },
+  {
+    "id": "30",
+    "name": "Radio Bob",
+    "url": "http://streams.radiobob.de/bob-live/mp3-192/mediaplayer",
+    "genre": "Rock",
+    "country": "Germany",
+    "description": "Rock classics and new rock"
+  }
+]
