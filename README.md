@@ -6,6 +6,12 @@ A comprehensive, modern radio station application built with Next.js 14, featuri
 ![TypeScript](https://img.shields.io/badge/TypeScript-5+-blue?style=for-the-badge&logo=typescript)
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind-CSS-38B2AC?style=for-the-badge&logo=tailwind-css)
 
+## 📚 Documentation
+
+- **[FAQ](./FAQ.md)** - Frequently asked questions
+- **[Broadcasting Guide](./BROADCASTING.md)** - How to create and share broadcasts
+- **[Implementation Details](./IMPLEMENTATION_SUMMARY.md)** - Technical architecture
+
 ## ✨ Features
 
 ### 🎵 Core Playback
@@ -79,6 +85,35 @@ A comprehensive, modern radio station application built with Next.js 14, featuri
 4. **Open your browser**
    Navigate to [http://localhost:3000](http://localhost:3000)
 
+## 🌐 Access from Other Devices
+
+### Local Network Access
+
+To access Revab Radio from other devices on your network (phones, tablets, other computers):
+
+1. **Start the server with network binding:**
+   ```bash
+   npm run dev -- -H 0.0.0.0
+   ```
+
+2. **Find your local IP address:**
+   - **Windows**: Run `ipconfig` (look for IPv4 Address)
+   - **Mac**: Run `ipconfig getifaddr en0`
+   - **Linux**: Run `hostname -I`
+
+3. **Access from other devices:**
+   Open `http://YOUR_LOCAL_IP:3000` on any device on the same network
+   
+   Example: `http://192.168.1.100:3000`
+
+### Internet Access
+
+For internet-wide access, see the [Broadcasting Guide](./BROADCASTING.md#-accessing-broadcasts-over-the-internet) which covers:
+- Using ngrok for quick temporary access
+- Deploying to Vercel, Railway, or other platforms
+- Self-hosting on a VPS
+- Security and performance considerations
+
 ## 📦 Build for Production
 
 ```bash
@@ -131,6 +166,67 @@ To add your own radio stations, edit `/public/stations.json`:
 ```
 
 Supported stream formats: MP3, AAC, OGG
+
+### 📺 Adding YouTube Streams
+
+You can add YouTube URLs as radio stations, but you need to configure cookies to bypass YouTube's automated access detection.
+
+#### Setup Instructions
+
+1. **Extract YouTube Cookies**
+   
+   Use a browser extension to export your YouTube cookies:
+   - **Chrome/Edge**: [Get cookies.txt LOCALLY](https://chrome.google.com/webstore/detail/get-cookiestxt-locally/cclelndahbckbenkjhflpdbgdldlbecc)
+   - **Firefox**: [cookies.txt](https://addons.mozilla.org/en-US/firefox/addon/cookies-txt/)
+   
+   After installing:
+   - Visit [YouTube](https://youtube.com) and ensure you're logged in
+   - Click the extension icon
+   - Export cookies in Netscape format
+   - Save the content to a file (e.g., `youtube_cookies.txt`)
+
+2. **Configure Environment Variable**
+   
+   Create a `.env.local` file in the project root:
+   
+   ```bash
+   cp .env.example .env.local
+   ```
+   
+   Add your YouTube cookies:
+   
+   ```env
+   YOUTUBE_COOKIES=path/to/youtube_cookies.txt
+   # Or paste the entire cookie content as a single line
+   ```
+
+3. **Add YouTube Station**
+   
+   Add to `/public/stations.json`:
+   
+   ```json
+   {
+     "id": "yt-1",
+     "name": "YouTube Live Stream",
+     "url": "https://www.youtube.com/watch?v=VIDEO_ID",
+     "genre": "Custom",
+     "country": "Online",
+     "description": "Live stream from YouTube"
+   }
+   ```
+
+4. **Restart the Server**
+   
+   ```bash
+   npm run dev
+   ```
+
+#### Important Notes
+
+- **Cookie Expiration**: YouTube cookies expire after a period. If streams stop working, you may need to re-export fresh cookies.
+- **Account Safety**: Keep your cookies private. Don't commit them to version control (already in `.gitignore`).
+- **Rate Limiting**: YouTube may still rate-limit or block access if too many requests are made.
+- **Terms of Service**: Ensure your use complies with YouTube's Terms of Service.
 
 ## 📁 Project Structure
 
@@ -225,6 +321,24 @@ Edit `/components/visualizer/AudioVisualizer.tsx` to customize the visualization
 ### Dark Mode Not Working
 
 Ensure your browser supports `prefers-color-scheme` media query. The theme toggle should work regardless.
+
+### YouTube Streams Not Playing
+
+If you're trying to play YouTube streams and encountering errors:
+
+1. **"YouTube detected automated access"**
+   - Configure `YOUTUBE_COOKIES` environment variable (see [Adding YouTube Streams](#-adding-youtube-streams) section)
+   - Ensure cookies are fresh (not expired)
+   - Make sure you're logged into YouTube when exporting cookies
+
+2. **Stream stops after a few minutes**
+   - YouTube cookies may have expired - re-export fresh cookies
+   - YouTube may be rate-limiting your IP - wait and try again later
+
+3. **"Video unavailable" errors**
+   - The video may be geo-restricted
+   - The video may require age verification
+   - The video may be private or deleted
 
 ## 📝 License
 

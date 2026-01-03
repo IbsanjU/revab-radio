@@ -29,6 +29,11 @@ yarn-error.log*
 .env
 .env*.local
 
+# Cookies and secrets
+*_cookies.txt
+cookies.txt
+youtube_cookies.txt
+
 # TypeScript
 *.tsbuildinfo
 next-env.d.ts
