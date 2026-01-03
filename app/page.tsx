@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { AudioPlayer } from '@/components/player/AudioPlayer';
 import { AudioEngine } from '@/components/player/AudioEngine';
 import { StationList } from '@/components/stations/StationList';
+import { CreateStation } from '@/components/stations/CreateStation';
 import { AudioVisualizer } from '@/components/visualizer/AudioVisualizer';
 import { ThemeToggle } from '@/components/ui/ThemeToggle';
 import { useAudioStore } from '@/lib/audio-store';
@@ -35,8 +36,24 @@ export default function Home() {
     const loadStations = async () => {
       setLoading(true);
       const fetchedStations = await fetchStations();
-      setStations(fetchedStations);
-      setStoreStations(fetchedStations);
+      
+      // Load custom broadcast stations from localStorage
+      let customStations = [];
+      try {
+        const stored = localStorage.getItem('customStations');
+        if (stored) {
+          customStations = JSON.parse(stored);
+        }
+      } catch (error) {
+        console.error('Error loading custom stations:', error);
+        // Reset corrupted localStorage
+        localStorage.removeItem('customStations');
+      }
+      
+      const allStations = [...fetchedStations, ...customStations];
+      
+      setStations(allStations);
+      setStoreStations(allStations);
       setLoading(false);
     };
 
@@ -198,6 +215,9 @@ export default function Home() {
 
       {/* Audio Player */}
       <AudioPlayer />
+
+      {/* Create Station Button */}
+      <CreateStation />
     </div>
   );
 }
