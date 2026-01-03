@@ -19,6 +19,7 @@ export function CreateStation() {
   const [stationName, setStationName] = useState('');
   const [genre, setGenre] = useState('Custom');
   const [description, setDescription] = useState('');
+  const [error, setError] = useState<string | null>(null);
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const audioChunksRef = useRef<Blob[]>([]);
 
@@ -28,6 +29,7 @@ export function CreateStation() {
   ];
 
   const startBroadcast = async () => {
+    setError(null);
     try {
       // Request microphone access
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
@@ -88,21 +90,26 @@ export function CreateStation() {
       setIsOpen(false);
 
       // Add station to localStorage for listeners
-      const customStations = JSON.parse(localStorage.getItem('customStations') || '[]');
-      customStations.push({
-        id: newStation.id,
-        name: newStation.name,
-        url: `/api/broadcast?id=${newStation.id}`,
-        genre: newStation.genre,
-        country: 'Custom',
-        description: newStation.description,
-        tags: ['live', 'custom'],
-      });
-      localStorage.setItem('customStations', JSON.stringify(customStations));
+      try {
+        const customStations = JSON.parse(localStorage.getItem('customStations') || '[]');
+        customStations.push({
+          id: newStation.id,
+          name: newStation.name,
+          url: `/api/broadcast?id=${newStation.id}`,
+          genre: newStation.genre,
+          country: 'Custom',
+          description: newStation.description,
+          tags: ['live', 'custom'],
+        });
+        localStorage.setItem('customStations', JSON.stringify(customStations));
+      } catch (error) {
+        console.error('Error saving custom station:', error);
+        // Continue even if localStorage fails
+      }
 
     } catch (error) {
       console.error('Error starting broadcast:', error);
-      alert('Failed to access microphone. Please grant permission and try again.');
+      setError('Failed to access microphone. Please grant permission and try again.');
     }
   };
 
@@ -122,9 +129,14 @@ export function CreateStation() {
       }
 
       // Remove from custom stations
-      const customStations = JSON.parse(localStorage.getItem('customStations') || '[]');
-      const filtered = customStations.filter((s: any) => s.id !== station.id);
-      localStorage.setItem('customStations', JSON.stringify(filtered));
+      try {
+        const customStations = JSON.parse(localStorage.getItem('customStations') || '[]');
+        const filtered = customStations.filter((s: any) => s.id !== station.id);
+        localStorage.setItem('customStations', JSON.stringify(filtered));
+      } catch (error) {
+        console.error('Error removing custom station:', error);
+        // Continue even if localStorage fails
+      }
     }
 
     setIsBroadcasting(false);
@@ -206,6 +218,14 @@ export function CreateStation() {
             </div>
 
             <div className="space-y-4">
+              {error && (
+                <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg p-3">
+                  <p className="text-sm text-red-800 dark:text-red-300">
+                    {error}
+                  </p>
+                </div>
+              )}
+
               <div>
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                   Station Name *

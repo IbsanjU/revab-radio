@@ -1,6 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
 
 // In-memory storage for active broadcasts
+// PRODUCTION NOTE: This uses in-memory storage which means:
+// - Broadcasts are lost on server restart
+// - Won't work properly in multi-instance deployments (load balancing)
+// - For production, migrate to Redis or a distributed database
 // In production, this should use Redis or a database
 const broadcasts = new Map<string, {
   stream: ReadableStream;

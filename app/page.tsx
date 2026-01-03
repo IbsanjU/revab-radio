@@ -38,7 +38,18 @@ export default function Home() {
       const fetchedStations = await fetchStations();
       
       // Load custom broadcast stations from localStorage
-      const customStations = JSON.parse(localStorage.getItem('customStations') || '[]');
+      let customStations = [];
+      try {
+        const stored = localStorage.getItem('customStations');
+        if (stored) {
+          customStations = JSON.parse(stored);
+        }
+      } catch (error) {
+        console.error('Error loading custom stations:', error);
+        // Reset corrupted localStorage
+        localStorage.removeItem('customStations');
+      }
+      
       const allStations = [...fetchedStations, ...customStations];
       
       setStations(allStations);

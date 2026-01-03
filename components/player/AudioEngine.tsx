@@ -78,6 +78,9 @@ export function AudioEngine() {
   }, [equalizer]);
 
   // Handle station changes
+  // Note: isPlaying is in dependencies to re-trigger play when user clicks play button
+  // while a station is already selected. The setIsPlaying(false) call on error won't
+  // cause an infinite loop because the effect only runs when currentStation or isPlaying changes.
   useEffect(() => {
     const audio = audioRef.current;
     if (!audio || !currentStation) return;
